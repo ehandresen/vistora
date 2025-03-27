@@ -1,0 +1,24 @@
+import { cn } from "@/lib/utils";
+
+function ProductPrice({
+  value,
+  className,
+}: {
+  value: number;
+  className?: string;
+}) {
+  // ensure two decimals
+  const stringValue = value.toFixed(2);
+
+  // get int and float value
+  const [intValue, floatValue] = stringValue.split(".");
+
+  return (
+    <p className={cn("text-2xl", className)}>
+      <span className="text-xs align-super">$</span>
+      {intValue}
+      <span className="text-xs align-super">.{floatValue}</span>
+    </p>
+  );
+}
+export default ProductPrice;
