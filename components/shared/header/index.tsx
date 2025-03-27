@@ -25,13 +25,13 @@ function Header() {
         </div>
         <div className="space-x-2">
           <ModeToggle />
-          <Button variant="link" asChild>
+          <Button variant="ghost" asChild>
             <Link href="/cart">
               <ShoppingCart /> Cart
             </Link>
           </Button>
 
-          <Button variant="link" asChild>
+          <Button asChild>
             <Link href="/sign-in">
               <UserIcon /> Sign In
             </Link>
