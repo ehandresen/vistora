@@ -5,7 +5,7 @@ import Menu from "./menu";
 
 function Header() {
   return (
-    <header className="w-full border-b border-gray-300">
+    <header className="w-full border-b border-gray-300 h-16 flex ">
       <div className="wrapper flex-between">
         <div className="flex-start">
           <Link href="/" className="flex-start">
