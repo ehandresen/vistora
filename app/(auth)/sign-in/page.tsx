@@ -15,11 +15,17 @@ import { redirect } from "next/navigation";
 
 export const metadata: Metadata = { title: "Sign In" };
 
-async function SignInPage() {
+async function SignInPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ callbackUrl: string }>;
+}) {
+  const { callbackUrl } = await searchParams;
+
   const session = await auth();
 
   if (session) {
-    return redirect("/");
+    return redirect(callbackUrl || "/");
   }
 
   return (

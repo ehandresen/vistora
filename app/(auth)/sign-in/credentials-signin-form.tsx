@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { signInDefaultValues } from "@/lib/constants";
 import { signInWithCredentials } from "@/lib/actions/user.actions";
 import { useActionState } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 
 function CredentialsSignInForm() {
@@ -14,8 +15,12 @@ function CredentialsSignInForm() {
     message: "",
   });
 
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl") || "/";
+
   return (
     <form action={action}>
+      <input type="hidden" className="callbackUrl" value={callbackUrl} />
       <div className="space-y-6">
         <div>
           <Label htmlFor="email" className="mb-1">
