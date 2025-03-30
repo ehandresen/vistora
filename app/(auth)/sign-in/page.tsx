@@ -10,17 +10,25 @@ import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import CredentialsSignInForm from "./credentials-signin-form";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = { title: "Sign In" };
 
-function SignInPage() {
+async function SignInPage() {
+  const session = await auth();
+
+  if (session) {
+    return redirect("/");
+  }
+
   return (
     <div className="w-full max-w-md mx-auto">
       <Card>
         <CardHeader className="space-y-4">
           <Link href="/" className="flex-center">
             <Image
-              src="/images/logo.png"
+              src="/images/logo.svg"
               width={100}
               height={100}
               alt={`${APP_NAME} logo`}
