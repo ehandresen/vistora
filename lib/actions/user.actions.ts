@@ -79,7 +79,7 @@ export async function signUpUser(prevState: unknown, formData: FormData) {
 
     return {
       success: false,
-      messsage: "User was not registered",
+      message: "User was not registered",
     };
   }
 }
