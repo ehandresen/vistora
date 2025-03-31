@@ -14,7 +14,6 @@ function SignUpForm() {
     success: false,
     message: "",
   });
-  console.log("🚀 ~ SignUpForm ~ data:", data);
 
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/";
@@ -31,7 +30,6 @@ function SignUpForm() {
             id="name"
             name="name"
             type="text"
-            required
             autoComplete="name"
             defaultValue={signUpDefaultValues.name}
           />
@@ -43,8 +41,7 @@ function SignUpForm() {
           <Input
             id="email"
             name="email"
-            type="email"
-            required
+            type="text"
             autoComplete="email"
             defaultValue={signUpDefaultValues.email}
           />
