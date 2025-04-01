@@ -10,7 +10,12 @@ export function convertToPlainObject<T>(value: T): T {
   return JSON.parse(JSON.stringify(value));
 }
 
-// format number with decimals
+// formats a number to a string with exactly two decimal places
+/* example: 
+    10 –> "10.00", 
+    19.5 –> "19.50", 
+    19.555 –> "19.56" 
+  */
 export function formatNumberWithDecimal(num: number): string {
   return num.toFixed(2);
 }
