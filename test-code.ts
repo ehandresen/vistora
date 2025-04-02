@@ -1,13 +1,17 @@
-function formatNumberWithDecimal(num: number): string {
-  //   // 49.99 <– split on the dot
-  //   const [int, decimal] = num.toString().split(".");
+function twoSum(nums: number[], target: number): number[] {
+  let counter = 1;
 
-  //   return decimal ? `${int}.${decimal.padEnd(2, "0")}` : `${int}.00`;
-  return num.toFixed(2);
+  for (const num of nums) {
+    if (Number(num) + nums[counter] === target) {
+      return [counter - 1, counter];
+    }
+    counter++;
+  }
+  return [];
 }
 
-const result = formatNumberWithDecimal(10);
-console.log("🚀 ~ result:", result);
+const array = [3, 2, 3];
+const target = 6;
 
-const result2 = formatNumberWithDecimal(19.555555);
-console.log("🚀 ~ result2:", result2);
+const result = twoSum(array, target);
+console.log("🚀 ~ result:", result);
