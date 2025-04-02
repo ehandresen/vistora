@@ -1,4 +1,4 @@
-import { nullable, z } from "zod";
+import { z } from "zod";
 import { formatNumberWithDecimal } from "./utils";
 
 const currency = z
@@ -47,7 +47,8 @@ export const signUpSchema = z
 // cart schemas
 export const cartItemSchema = z.object({
   productId: z.string().min(1, "Product is required"),
-  name: z.string().min(1, "Slug is required"),
+  name: z.string().min(1, "Name is required"),
+  slug: z.string().min(1, "Slug is required"),
   qty: z.number().int().nonnegative("Quantitty must be a positive number"),
   image: z.string().min(1, "Image is required"),
   price: currency,
