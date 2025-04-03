@@ -1,11 +1,13 @@
 "use server";
 
-import { signInSchema, signUpSchema } from "../validators";
-import { signIn, signOut } from "@/auth";
-import { isRedirectError } from "next/dist/client/components/redirect-error";
-import { hashSync } from "bcrypt-ts-edge";
-import { prisma } from "@/db/prisma";
-import { formatError } from "../utils";
+import { hashSync } from 'bcrypt-ts-edge';
+import { isRedirectError } from 'next/dist/client/components/redirect-error';
+
+import { signIn, signOut } from '@/auth';
+import { prisma } from '@/db/prisma';
+
+import { formatError } from '../utils';
+import { signInSchema, signUpSchema } from '../validators';
 
 // sign in the user with credentials
 export async function signInWithCredentials(

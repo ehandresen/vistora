@@ -1,12 +1,12 @@
 "use client";
 
-import { Plus } from "lucide-react";
-import { toast } from "sonner";
+import { Plus } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
-import { Button } from "@/components/ui/button";
-import { addItemToCart } from "@/lib/actions/cart.actions";
-import { CartItem } from "@/types";
-import { useRouter } from "next/navigation";
+import { Button } from '@/components/ui/button';
+import { addItemToCart } from '@/lib/actions/cart.actions';
+import { CartItem } from '@/types';
 
 function AddToCart({ item }: { item: CartItem }) {
   const router = useRouter();
