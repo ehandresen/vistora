@@ -1,13 +1,33 @@
 "use server";
 
+import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 
 import { auth } from '@/auth';
 import { prisma } from '@/db/prisma';
 import { CartItem } from '@/types';
 
-import { convertToPlainObject, formatError } from '../utils';
-import { cartItemSchema } from '../validators';
+import {
+    convertToPlainObject, formatError, formatNumberWithDecimal, roundToTwoDecimals
+} from '../utils';
+import { cartItemSchema, insertCartSchema } from '../validators';
+
+// calculate cart prices
+function calcPrice(items: CartItem[]) {
+  const itemsPrice = roundToTwoDecimals(
+      items.reduce((acc, item) => acc + Number(item.price) * item.qty, 0)
+    ),
+    shippingPrice = roundToTwoDecimals(itemsPrice > 100 ? 0 : 10),
+    taxPrice = roundToTwoDecimals(0.15 * itemsPrice),
+    totalPrice = roundToTwoDecimals(itemsPrice + shippingPrice + taxPrice);
+
+  return {
+    itemsPrice: formatNumberWithDecimal(itemsPrice),
+    shippingPrice: formatNumberWithDecimal(shippingPrice),
+    taxPrice: formatNumberWithDecimal(taxPrice),
+    totalPrice: formatNumberWithDecimal(totalPrice),
+  };
+}
 
 export async function addItemToCart(data: CartItem) {
   try {
@@ -32,19 +52,31 @@ export async function addItemToCart(data: CartItem) {
         id: item.productId,
       },
     });
+    if (!product) throw new Error("Product not found");
 
-    //testing
-    console.log({
-      sessionCartId,
-      userId,
-      item,
-      product,
-    });
+    if (!cart) {
+      // create new cart object
+      const newCart = insertCartSchema.parse({
+        userId: userId,
+        items: [item],
+        sessionCartId: sessionCartId,
+        ...calcPrice([item]),
+      });
 
-    return {
-      success: true,
-      message: "Item added to cart",
-    };
+      // add to database
+      await prisma.cart.create({
+        data: newCart,
+      });
+
+      // revalidate product page to update any product-related info (e.g. stock, in-cart info)
+
+      revalidatePath(`/product/${product.slug}`);
+
+      return {
+        success: true,
+        message: "Item added to cart",
+      };
+    }
   } catch (error) {
     return {
       success: false,
