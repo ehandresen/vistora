@@ -8,7 +8,7 @@ const currency = z
     "Price must have exactly two decimal places"
   );
 
-// schema for inserting products
+// Schema for inserting products
 export const insertProductSchema = z.object({
   name: z.string().min(3, "Name must be atleast 3 characters"),
   slug: z.string().min(3, "Slug must be atleast 3 characters"),
@@ -16,19 +16,19 @@ export const insertProductSchema = z.object({
   brand: z.string().min(3, "Brand must be atleast 3 characters"),
   description: z.string().min(3, "Description must be atleast 3 characters"),
   stock: z.coerce.number(),
-  images: z.array(z.string()).min(1, "Product must have atleast 1 image"), // this pertinence to items in the array
+  images: z.array(z.string()).min(1, "Product must have atleast 1 image"), // This pertinence to items in the array
   isFeatured: z.boolean(),
   banner: z.string().nullable(),
   price: currency,
 });
 
-// schema for signing users in
+// Schema for signing users in
 export const signInSchema = z.object({
   email: z.string().email("Invalid email address"),
   password: z.string().min(6, "Password must be atleast 6 characters"),
 });
 
-// schema for signing up a user
+// Schema for signing up a user
 export const signUpSchema = z
   .object({
     name: z.string().min(3, "Name must be atleast 3 characters"),
@@ -39,12 +39,12 @@ export const signUpSchema = z
       .min(6, "Confirm password must be atleast 6 characters"),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    // if its true it passes, if it doesnt show this message:
+    // If its true it passes, if it doesnt show this message:
     message: "Passwords don't match",
     path: ["confirmPassword"],
   });
 
-// cart schemas
+// Cart schemas
 export const cartItemSchema = z.object({
   productId: z.string().min(1, "Product is required"),
   name: z.string().min(1, "Name is required"),
@@ -61,5 +61,5 @@ export const insertCartSchema = z.object({
   shippingPrice: currency,
   taxPrice: currency,
   sessionCartId: z.string().min(1, "Session cart id is required"),
-  userId: z.string().optional().nullable(), // users can add to cart without being logged in
+  userId: z.string().optional().nullable(), // Users can add to cart without being logged in
 });

@@ -9,7 +9,7 @@ import { prisma } from '@/db/prisma';
 import { formatError } from '../utils';
 import { signInSchema, signUpSchema } from '../validators';
 
-// sign in the user with credentials
+// Sign in the user with credentials
 export async function signInWithCredentials(
   prevState: unknown,
   formData: FormData
@@ -28,7 +28,7 @@ export async function signInWithCredentials(
     };
   } catch (error) {
     if (isRedirectError(error)) {
-      throw error; // next.js will take over
+      throw error; // Next.js will take over
     }
 
     return {
@@ -38,12 +38,12 @@ export async function signInWithCredentials(
   }
 }
 
-// sign user out
+// Sign user out
 export async function signOutUser() {
   await signOut();
 }
 
-// sign up user
+// Sign up user
 export async function signUpUser(prevState: unknown, formData: FormData) {
   try {
     const user = signUpSchema.parse({
@@ -53,7 +53,7 @@ export async function signUpUser(prevState: unknown, formData: FormData) {
       confirmPassword: formData.get("confirmPassword"),
     });
 
-    // get the password before we hash it
+    // Get the password before we hash it
     const plainPassword = user.password;
 
     user.password = hashSync(user.password, 10);

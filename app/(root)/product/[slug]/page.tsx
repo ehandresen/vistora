@@ -13,7 +13,7 @@ async function ProductDetailsPage(props: {
   const { slug } = await props.params;
 
   const product = await getProductBySlug(slug);
-  if (!product) notFound(); // if no product, send user to not-found page
+  if (!product) notFound(); // If no product, send user to not-found page
 
   return (
     <>

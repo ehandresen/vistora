@@ -7,10 +7,10 @@ function ProductPrice({
   value: number;
   className?: string;
 }) {
-  // ensure two decimals
+  // Ensure two decimals
   const stringValue = value.toFixed(2);
 
-  // get int and float value
+  // Get int and float value
   const [intValue, floatValue] = stringValue.split(".");
 
   return (

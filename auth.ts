@@ -24,22 +24,22 @@ export const config: NextAuthConfig = {
       },
       async authorize(credentials) {
         if (credentials === null) return null;
-        // find user in database
+        // Find user in database
         const user = await prisma.user.findFirst({
           where: {
             email: credentials.email as string,
           },
         });
 
-        // check if user exists and password matches
+        // Check if user exists and password matches
         if (user && user.password) {
-          // compareSync() –> checks if password matches hash
+          // CompareSync() –> checks if password matches hash
           const isMatch = compareSync(
             credentials.password as string,
             user.password
           );
 
-          // if password is correct, return user
+          // If password is correct, return user
           if (isMatch) {
             return {
               id: user.id,
@@ -49,19 +49,19 @@ export const config: NextAuthConfig = {
             };
           }
         }
-        // if user does not exist, or password does not match, return null
+        // If user does not exist, or password does not match, return null
         return null;
       },
     }),
   ],
   callbacks: {
     async session({ session, user, trigger, token }: any) {
-      // set user id from the token
+      // Set user id from the token
       session.user.id = token.sub;
       session.user.role = token.role;
       session.user.name = token.name;
 
-      // if there is an update, set user name
+      // If there is an update, set user name
       if (trigger === "update") {
         session.user.name = user.name;
       }
@@ -69,15 +69,15 @@ export const config: NextAuthConfig = {
       return session;
     },
     async jwt({ session, user, trigger, token }: any) {
-      // assign user fields to token
+      // Assign user fields to token
       if (user) {
         token.role = user.role;
 
-        // if user has no name then use email
+        // If user has no name then use email
         if (user.name === "NO_NAME") {
           token.name = user.email!.split("@")[0];
 
-          // update database to reflect token name
+          // Update database to reflect token name
           await prisma.user.update({
             where: { id: user.id },
             data: { name: token.name },

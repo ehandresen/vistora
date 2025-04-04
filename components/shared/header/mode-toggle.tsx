@@ -21,7 +21,7 @@ function ModeToggle() {
     setMounted(true);
   }, []);
 
-  // fixes hydration error in next.js
+  // Fixes hydration error in next.js
   if (!mounted) {
     return null;
   }

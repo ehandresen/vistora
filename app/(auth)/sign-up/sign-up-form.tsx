@@ -68,7 +68,7 @@ function SignUpForm() {
             name="confirmPassword"
             type="password"
             required
-            // autoComplete="confirmPassword"
+            // AutoComplete="confirmPassword"
             defaultValue={signUpDefaultValues.confirmPassword}
           />
         </div>

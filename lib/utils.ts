@@ -5,12 +5,12 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-// convert prisma object –> regular JS object
+// Convert prisma object –> regular JS object
 export function convertToPlainObject<T>(value: T): T {
   return JSON.parse(JSON.stringify(value));
 }
 
-// formats a number to a string with exactly two decimal places
+// Formats a number to a string with exactly two decimal places
 /* example: 
     10 –> "10.00", 
     19.5 –> "19.50", 
@@ -20,11 +20,11 @@ export function formatNumberWithDecimal(num: number): string {
   return num.toFixed(2);
 }
 
-// format errors
+// Format errors
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function formatError(error: any) {
   if (error.name === "ZodError") {
-    // handle zod error
+    // Handle zod error
     const fieldErrors = Object.keys(error.errors).map(
       (field) => error.errors[field].message
     );
@@ -34,19 +34,19 @@ export async function formatError(error: any) {
     error.name === "PrismaClientKnownRequestError" &&
     error.code === "P2002"
   ) {
-    // handle prisma error
+    // Handle prisma error
     const field = error.meta?.target ? error.meta.target[0] : "Field";
 
     return `${field.charAt(0).toUpperCase() + field.slice(1)} already exists`;
   } else {
-    // handle other errors
+    // Handle other errors
     return typeof error.message === "string"
       ? error.message
       : JSON.stringify(error.message);
   }
 }
 
-// round number to two decimals places
+// Round number to two decimals places
 export function roundToTwoDecimals(value: number | string): number {
   if (typeof value === "number") {
     return Math.round((value + Number.EPSILON) * 100) / 100;
