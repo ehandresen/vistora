@@ -1,4 +1,6 @@
+// This file is defining various schemas using the Zod library for data validation.
 import { z } from "zod";
+
 import { formatNumberWithDecimal } from "./utils";
 
 const currency = z
@@ -62,4 +64,15 @@ export const insertCartSchema = z.object({
   taxPrice: currency,
   sessionCartId: z.string().min(1, "Session cart id is required"),
   userId: z.string().optional().nullable(), // Users can add to cart without being logged in
+});
+
+// Schema for the shipping address
+export const shippingAddressSchema = z.object({
+  fullName: z.string().min(3, "Name must be atleast 3 characters"),
+  streetAddress: z.string().min(3, "Address must be atleast 3 characters"),
+  city: z.string().min(3, "City must be atleast 3 characters"),
+  postalCode: z.string().min(3, "Postal code must be atleast 3 characters"),
+  country: z.string().min(3, "Country must be atleast 3 characters"),
+  lat: z.number().optional(),
+  lng: z.number().optional(),
 });
