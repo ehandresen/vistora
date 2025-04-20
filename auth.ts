@@ -1,10 +1,13 @@
+// This file is setting up authentication using NextAuth
+
 import { compareSync } from "bcrypt-ts-edge";
 import NextAuth, { NextAuthConfig } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { authConfig } from "./auth.config";
 
 import { prisma } from "@/db/prisma";
 import { PrismaAdapter } from "@auth/prisma-adapter";
+
+import { authConfig } from "./auth.config";
 
 export const config: NextAuthConfig = {
   pages: {

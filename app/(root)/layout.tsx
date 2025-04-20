@@ -2,7 +2,10 @@ import Footer from "@/components/footer";
 import Header from "@/components/shared/header";
 
 export const metadata = {
-  title: "Home",
+  title: {
+    default: "Home",
+    template: "%s | Vistora",
+  },
 };
 
 export default function RootLayout({
