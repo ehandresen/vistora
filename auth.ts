@@ -89,27 +89,29 @@ export const config: NextAuthConfig = {
           });
         }
 
-        if (trigger === "signIn" || trigger === "signUp") {
+        if (["signIn", "signUp"].includes(trigger)) {
           const cookiesObject = await cookies();
           const sessionCartId = cookiesObject.get("sessionCartId")?.value;
 
-          if (sessionCartId) {
-            const sessionCart = await prisma.cart.findFirst({
-              where: { sessionCartId },
+          if (!sessionCartId) return;
+
+          const sessionCart = await prisma.cart.findFirst({
+            where: { sessionCartId },
+          });
+
+          if (!sessionCart) return;
+
+          if (sessionCart.userId !== user.id) {
+            // Delete current user cart
+            await prisma.cart.deleteMany({
+              where: { userId: user.id },
             });
 
-            if (sessionCart) {
-              // Delete current user cart
-              await prisma.cart.deleteMany({
-                where: { userId: user.id },
-              });
-
-              // Assign new cart
-              await prisma.cart.update({
-                where: { id: sessionCart.id },
-                data: { userId: user.id },
-              });
-            }
+            // Assign new cart
+            await prisma.cart.update({
+              where: { id: sessionCart.id },
+              data: { userId: user.id },
+            });
           }
         }
       }
