@@ -1,16 +1,12 @@
+import { UserIcon } from "lucide-react";
 import Link from "next/link";
+
 import { auth } from "@/auth";
-import { signOutUser } from "@/lib/actions/user.actions";
 import { Button } from "@/components/ui/button";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
+    DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
-import { UserIcon } from "lucide-react";
+import { signOutUser } from "@/lib/actions/user.actions";
 
 async function UserButton() {
   const session = await auth();
@@ -51,7 +47,19 @@ async function UserButton() {
               </div>
             </div>
           </DropdownMenuLabel>
-          <DropdownMenuSeparator />
+
+          <DropdownMenuItem>
+            <Link href="/user/profile" className="w-full">
+              Profile
+            </Link>
+          </DropdownMenuItem>
+
+          <DropdownMenuItem>
+            <Link href="/user/orders" className="w-full">
+              Order History
+            </Link>
+          </DropdownMenuItem>
+
           <DropdownMenuItem className="p-0 mb-1">
             <form className="w-full">
               <Button
@@ -63,12 +71,6 @@ async function UserButton() {
               </Button>
             </form>
           </DropdownMenuItem>
-          {/* <DropdownMenuLabel>My Account</DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem>Profile</DropdownMenuItem>
-          <DropdownMenuItem>Billing</DropdownMenuItem>
-          <DropdownMenuItem>Team</DropdownMenuItem>
-          <DropdownMenuItem>Subscription</DropdownMenuItem> */}
         </DropdownMenuContent>
       </DropdownMenu>
     </div>

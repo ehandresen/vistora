@@ -115,6 +115,12 @@ export const config: NextAuthConfig = {
           }
         }
       }
+
+      // Handle session updates
+      if (session?.user.name && trigger === "update") {
+        token.name = session.user.name;
+      }
+
       return token;
     },
     ...authConfig.callbacks,
