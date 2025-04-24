@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/carousel";
 import { Product } from "@/types";
 
-const ProductCarousel = ({ data }: { data: Product[] }) => {
+function ProductCarousel({ data }: { data: Product[] }) {
   return (
     <Carousel
       className="w-full mb-12"
@@ -51,6 +51,6 @@ const ProductCarousel = ({ data }: { data: Product[] }) => {
       <CarouselNext />
     </Carousel>
   );
-};
+}
 
 export default ProductCarousel;
