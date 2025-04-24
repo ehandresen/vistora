@@ -119,13 +119,17 @@ const ProductForm = ({
               >;
             }) => (
               <FormItem className="w-full">
-                <FormLabel>Name</FormLabel>
+                <FormLabel>Slug</FormLabel>
                 <FormControl>
-                  <div className="relative">
-                    <Input placeholder="Enter slug" {...field} />
+                  <div className="flex gap-2">
+                    <Input
+                      placeholder="Enter slug"
+                      {...field}
+                      className="flex-1"
+                    />
                     <Button
                       type="button"
-                      className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-1 mt-2"
+                      className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-1 "
                       onClick={() => {
                         form.setValue(
                           "slug",
