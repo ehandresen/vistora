@@ -19,6 +19,20 @@ Vistora is an online store app made with **Next.js 14**, **TypeScript**,
 
 ---
 
+## Screenshots
+
+Here are some screenshots from the app:
+
+### Homepage
+
+![Homepage Screenshot](./public/images/screenshots/homepage.png)
+
+### Product Page
+
+![Product Page Screenshot](./public/images/screenshots/product-page.png)
+
+---
+
 ## Tech Stack
 
 - **Frontend:** Next.js, TypeScript, Tailwind CSS
